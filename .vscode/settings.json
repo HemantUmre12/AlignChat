@@ -6,5 +6,6 @@
             "source.organizeImports": true
         },
       },
+    "black-formatter.args": ["--line-length", "79"],
     "isort.args":["--profile", "black"],
 }
