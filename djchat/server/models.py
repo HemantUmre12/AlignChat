@@ -17,7 +17,7 @@ class Server(models.Model):
         on_delete=models.CASCADE,
         related_name="server_owner",
     )
-    Category = models.ForeignKey(
+    category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="server_category"
     )
     description = models.CharField(max_length=250, blank=True, null=True)
