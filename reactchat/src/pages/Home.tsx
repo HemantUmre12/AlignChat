@@ -3,13 +3,17 @@ import PrimaryAppBar from "./templates/PrimaryAppBar";
 import PrimaryDraw from "./templates/PrimaryDraw";
 import SecondaryDraw from "./templates/SecondaryDraw";
 import Main from "./templates/Main";
+import PopularChannels from "../components/PrimaryDraw/PopularChannels";
 
 const Home = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <PrimaryAppBar />
-      <PrimaryDraw />
+      {/* Using  Render Prop design pattern*/}
+      <PrimaryDraw>
+        {(open: boolean) => <PopularChannels open={open} />}
+      </PrimaryDraw>
       <SecondaryDraw />
       <Main />
     </Box>

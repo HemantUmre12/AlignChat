@@ -1,11 +1,17 @@
-import { Box, Typography, useMediaQuery, styled } from "@mui/material";
+import { Box, useMediaQuery, styled } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import DrawerToggle from "../../components/PrimaryDraw/DrawToggle";
 import MuiDrawer from "@mui/material/Drawer";
 
-const PrimaryDraw = () => {
-  // State
+type Props = {
+  children: (open: boolean) => ReactNode;
+};
+
+const PrimaryDraw: React.FC<Props> = (props) => {
+  // The state `open` is used for both toggling the size of the drawer
+  // on click of a bottom and removing the drawer for smaller screens
+  // in conjuction with `below600` state.
   const [open, setOpen] = useState(false);
   const handleDrawOpen = () => {
     setOpen(true);
@@ -79,14 +85,9 @@ const PrimaryDraw = () => {
             handleDrawOpen={handleDrawOpen}
             handleDrawClose={handleDrawClose}
           />
-          {[...Array(100)].map((_, i) => {
-            return (
-              <Typography key={i + 1} paragraph>
-                {i}
-              </Typography>
-            );
-          })}
         </Box>
+
+        {props.children(open)}
       </Box>
     </Drawer>
   );
