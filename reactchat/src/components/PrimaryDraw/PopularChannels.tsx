@@ -72,6 +72,7 @@ const PopularChannels: React.FC<Props> = (props) => {
                     />
                   </ListItemAvatar>
                 </ListItemIcon>
+
                 <ListItemText
                   primary={
                     <Typography

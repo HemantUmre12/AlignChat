@@ -41,6 +41,10 @@ export const createMuiTheme = () => {
     },
     typography: {
       fontFamily: ["IBM Plex Sans", "sans-serif"].join(","),
+      body1: {
+        fontWeight: 500,
+        letterSpacing: "-0.5px",
+      },
     },
     components: {
       MuiAppBar: {
