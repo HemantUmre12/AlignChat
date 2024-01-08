@@ -1,7 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import React, { ReactNode } from "react";
 
-const Main = () => {
+type Props = {
+  children: ReactNode | null;
+};
+
+const Main: React.FC<Props> = (props) => {
   const theme = useTheme();
 
   return (
@@ -10,16 +15,11 @@ const Main = () => {
         flexGrow: 1,
         mt: `${theme.primaryAppBar.height}px`,
         height: `calc(100vh - ${theme.primaryAppBar.height}px)`,
-        overflow: "hidden",
+        overflow: "auto",
       }}
     >
-      {[...Array(100)].map((_, i) => {
-        return (
-          <Typography key={i + 1} paragraph>
-            {i}
-          </Typography>
-        );
-      })}
+      {/* Explore Servers */}
+      {props.children}
     </Box>
   );
 };

@@ -14,7 +14,7 @@ const SecondaryDraw: React.FC<Props> = (props) => {
       sx={{
         mt: `${theme.primaryAppBar.height}px`,
         height: `calc(100vh - ${theme.primaryAppBar.height}px)`,
-        width: `${theme.secondaryDraw.width}px`,
+        minWidth: `${theme.secondaryDraw.width}px`,
         borderRight: `1px solid ${theme.palette.divider}`,
         display: { xs: "none", sm: "block" },
         overflow: "auto",

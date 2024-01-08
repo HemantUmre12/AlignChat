@@ -29,6 +29,7 @@ class Category(models.Model):
             if existing.icon != self.icon:
                 existing.icon.delete(save=False)
 
+        self.name = self.name.lower()
         super(Category, self).save(*args, **kwargs)
 
     @receiver(models.signals.pre_delete, sender="server.Category")

@@ -17,12 +17,9 @@ import { MEDIA_URL } from "../../config";
 interface Server {
   id: number;
   name: string;
-  category: number;
-  owner: number;
-  description: string | null;
-  icon: string | null;
-  banner: string | null;
-  channel_server: [];
+  category: string;
+  description: string;
+  icon: string;
 }
 
 type Props = {
