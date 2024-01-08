@@ -11,6 +11,7 @@ import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState } from "react";
+import ExploreCategories from "../../components/SecondaryDraw/ExploreCategories";
 
 const PrimaryAppBar = () => {
   const theme = useTheme();
@@ -26,6 +27,17 @@ const PrimaryAppBar = () => {
       toggleDrawer(false);
     }
   }, [isSmallScreen, sideMenu]);
+
+  const list = () => (
+    <Box
+      sx={{ minWidth: 200, paddingTop: `${theme.primaryAppBar.height}px` }}
+      role="presentation"
+      onClick={() => toggleDrawer(false)}
+      onKeyDown={() => toggleDrawer(false)}
+    >
+      <ExploreCategories />
+    </Box>
+  );
 
   return (
     <AppBar
@@ -55,15 +67,7 @@ const PrimaryAppBar = () => {
         </Box>
 
         <Drawer open={sideMenu} onClose={() => toggleDrawer(false)}>
-          <Box>
-            {[...Array(100)].map((_, i) => {
-              return (
-                <Typography key={i + 1} paragraph>
-                  {i}
-                </Typography>
-              );
-            })}
-          </Box>
+          <Box>{list()}</Box>
         </Drawer>
 
         <Link to="/" color="inherit" style={{ textDecoration: "none" }}>
