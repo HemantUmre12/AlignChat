@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState } from "react";
 import ExploreCategories from "../../components/SecondaryDraw/ExploreCategories";
+import AccountButton from "../../components/PrimaryAppBar/AccountButton";
 
 const PrimaryAppBar = () => {
   const theme = useTheme();
@@ -80,6 +81,10 @@ const PrimaryAppBar = () => {
             DJCHAT
           </Typography>
         </Link>
+
+        <Box sx={{ flexGrow: 1 }}></Box>
+
+        <AccountButton />
       </Toolbar>
     </AppBar>
   );
