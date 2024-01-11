@@ -18,6 +18,8 @@ urlpatterns = [
     ),
 ] + rounter.urls
 
+websocket_url_patterns = []
+
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
