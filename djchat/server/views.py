@@ -9,7 +9,7 @@ from .schema import server_list_docs
 from .serializer import CategorySerializer, ServerSerializer
 
 
-class categoryListViewSet(viewsets.ViewSet):
+class CategoryListViewSet(viewsets.ViewSet):
     queryset = Category.objects.all()
 
     @extend_schema(responses=CategorySerializer)
@@ -40,8 +40,8 @@ class ServerListViewSet(viewsets.ViewSet):
                 raise AuthenticationFailed()
 
         if by_serverID:
-            if not request.user.is_authenticated:
-                raise AuthenticationFailed()
+            # if not request.user.is_authenticated:
+            #     raise AuthenticationFailed()
             try:
                 self.queryset = self.queryset.filter(id=by_serverID)
                 if not self.queryset.exists():

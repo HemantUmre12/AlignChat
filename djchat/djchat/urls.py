@@ -4,11 +4,14 @@ from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
-from server.views import ServerListViewSet, categoryListViewSet
+from server.views import CategoryListViewSet, ServerListViewSet
+from webchat.consumers import WebChatConsumer
+from webchat.views import MessageViewSet
 
 rounter = DefaultRouter()
 rounter.register("api/server/select", ServerListViewSet)
-rounter.register("api/server/category", categoryListViewSet)
+rounter.register("api/server/category", CategoryListViewSet)
+rounter.register("api/messages", MessageViewSet, basename="message")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -18,7 +21,9 @@ urlpatterns = [
     ),
 ] + rounter.urls
 
-websocket_url_patterns = []
+websocket_url_patterns = [
+    path("<str:serverId>/<str:channelId>", WebChatConsumer.as_asgi())
+]
 
 if settings.DEBUG:
     urlpatterns += static(
