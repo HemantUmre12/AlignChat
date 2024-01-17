@@ -10,26 +10,31 @@ import { useNavigate, useParams } from "react-router-dom";
 import useCrud from "../hooks/useCrud";
 import { useEffect } from "react";
 import { Server } from "../@type/server.d";
+import ServerLanding from "../components/Main/ServerLanding";
+import LoadingScreen from "./templates/LoadingScreen";
 
+// TODO: Refactor
 const Server = () => {
-  // Fetch Data
   const { serverId, channelId } = useParams();
+
+  // Fetch the server data
   const { dataCRUD, error, fetchData } = useCrud<Server>(
     [],
     `/server/select/?by_serverID=${serverId}`
   );
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Navigate to home page incase unable to fetch server data
+  const navigate = useNavigate();
   useEffect(() => {
-    if (!isChannel()) {
+    if (!isValidChannel()) {
       navigate(`/server/${serverId}`);
     }
   }, []);
 
-  // Navigate to home page incase unable to fetch server data
-  const navigate = useNavigate();
   if (error !== null && error.message === "400") {
     navigate("/");
     return null;
@@ -37,7 +42,7 @@ const Server = () => {
 
   // Check if the channelId is valid by searching for it
   // in the data fetched from API
-  const isChannel = (): boolean => {
+  const isValidChannel = (): boolean => {
     if (!channelId) {
       return true;
     }
@@ -48,6 +53,18 @@ const Server = () => {
       );
     });
   };
+
+  // !! Fix this !!
+  if (!dataCRUD.length) {
+    return <LoadingScreen />;
+  }
+
+  // TODO: Remove incase not needed
+  if (dataCRUD.length !== 1) {
+    console.log("Unexpected Server Result");
+  }
+
+  const activeServer: Server = dataCRUD[0];
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -60,13 +77,14 @@ const Server = () => {
         )}
       </PrimaryDraw>
       <SecondaryDraw>
-        <ServerChannels
-          data={dataCRUD}
-          serverId={parseInt(serverId ?? "")}
-        ></ServerChannels>
+        <ServerChannels activeServer={activeServer} />
       </SecondaryDraw>
       <Main>
-        <MessageInterface></MessageInterface>
+        {channelId ? (
+          <MessageInterface />
+        ) : (
+          <ServerLanding activeServer={activeServer} />
+        )}
       </Main>
     </Box>
   );

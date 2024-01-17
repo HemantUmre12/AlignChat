@@ -11,15 +11,11 @@ import { Link } from "react-router-dom";
 import { Server, Channel } from "../../@type/server.d";
 
 interface Props {
-  data: Server[];
-  serverId: number;
+  activeServer: Server;
 }
 
 const ServerChannels: React.FC<Props> = (props) => {
-  const activeServer: Server | undefined = props.data.find(
-    (server) => server.id === props.serverId
-  );
-  const data: Channel[] = activeServer?.channel_server ?? [];
+  const data: Channel[] = props.activeServer.channel_server;
 
   const theme = useTheme();
   return (
@@ -43,7 +39,7 @@ const ServerChannels: React.FC<Props> = (props) => {
             whiteSpace: "nowrap",
           }}
         >
-          {activeServer?.name ?? "Server"}
+          {props.activeServer?.name ?? "Server"}
         </Typography>
       </Box>
 
@@ -56,7 +52,7 @@ const ServerChannels: React.FC<Props> = (props) => {
             dense={true}
           >
             <Link
-              to={`/server/${props.serverId}/${item.id}`}
+              to={`/server/${props.activeServer.id}/${item.id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <ListItemButton sx={{ minHeight: 48 }}>
