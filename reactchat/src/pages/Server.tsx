@@ -81,7 +81,7 @@ const Server = () => {
       </SecondaryDraw>
       <Main>
         {channelId ? (
-          <MessageInterface />
+          <MessageInterface activeServer={activeServer} channelId={channelId} />
         ) : (
           <ServerLanding activeServer={activeServer} />
         )}

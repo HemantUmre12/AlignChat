@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 import useCrud from "../../hooks/useCrud";
+import { Server } from "../../@type/server";
+import MessageInterfaceChannels from "./MessageInterfaceChannels";
 
 interface Message {
   id: number;
@@ -10,18 +11,20 @@ interface Message {
   timestamp: string;
 }
 
-const MessageInterface = () => {
-  const { serverId, channelId } = useParams();
+interface Props {
+  activeServer: Server;
+  channelId: string;
+}
+
+const MessageInterface: React.FC<Props> = (props) => {
   const [newMessage, setNewMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
   const { fetchData } = useCrud<Message>(
     [],
-    `/messages/?channel_id=${channelId}`
+    `/messages/?channel_id=${props.channelId}`
   );
 
-  const socketURL = channelId
-    ? `ws://127.0.0.1:8000/${serverId}/${channelId}`
-    : null;
+  const socketURL = `ws://127.0.0.1:8000/${props.activeServer.id}/${props.channelId}`;
 
   // Establish a Websocket connection with the server
   const { sendJsonMessage } = useWebSocket(socketURL, {
@@ -54,28 +57,35 @@ const MessageInterface = () => {
   };
 
   return (
-    <div>
-      {newMessage.map((msg: Message, index: number) => {
-        return (
-          <div key={index}>
-            <p>{msg.content}</p>
-          </div>
-        );
-      })}
+    <>
+      <MessageInterfaceChannels
+        activeServer={props.activeServer}
+        channelId={props.channelId}
+      />
 
-      <form>
-        <label>
-          Enter message:
-          <input
-            type="text"
-            onChange={(e) => setMessage(e.target.value)}
-            value={message}
-          ></input>
-        </label>
-      </form>
+      <div>
+        {newMessage.map((msg: Message, index: number) => {
+          return (
+            <div key={index}>
+              <p>{msg.content}</p>
+            </div>
+          );
+        })}
 
-      <button onClick={handleSendMessage}>Send Message</button>
-    </div>
+        <form>
+          <label>
+            Enter message:
+            <input
+              type="text"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            ></input>
+          </label>
+        </form>
+
+        <button onClick={handleSendMessage}>Send Message</button>
+      </div>
+    </>
   );
 };
 
