@@ -9,15 +9,12 @@ const TestLogin = () => {
   const jwtAxios = useAxiosWithInterceptor();
 
   const getUserDetails = async () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const userId = localStorage.getItem("userId");
+    const userId = 1;
     try {
       const response = await jwtAxios.get(
         `${BASE_URL}/account/?user_id=${userId}`,
         {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          withCredentials: true,
         }
       );
 
