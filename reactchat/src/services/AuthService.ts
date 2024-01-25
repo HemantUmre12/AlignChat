@@ -72,6 +72,20 @@ const useAuthService = () => {
     }
   };
 
+  const refreshAccessToken = async () => {
+    try {
+      await axios.post(
+        `${BASE_URL}/token/refresh/`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (refreshError) {
+      return Promise.reject(refreshError);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("username");
@@ -80,7 +94,7 @@ const useAuthService = () => {
     setIsLoggedIn(false);
   };
 
-  return { login, logout, isLoggedIn };
+  return { login, logout, isLoggedIn, refreshAccessToken };
 };
 
 export default useAuthService;

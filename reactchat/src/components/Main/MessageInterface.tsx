@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Scroll from "./Scroll";
+import useAuthServiceContext from "../../context/useAuthServiceContext";
 
 interface Message {
   id: number;
@@ -37,6 +38,10 @@ interface Props {
 const MessageInterface: React.FC<Props> = (props) => {
   const theme = useTheme();
 
+  const { logout, refreshAccessToken } = useAuthServiceContext();
+  const [reconnectionAttempt, setReconnectionAttempt] = useState(0);
+  const maxConnectionAttempt = 4;
+
   const [newMessage, setNewMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
   const { fetchData } = useCrud<Message>(
@@ -58,7 +63,18 @@ const MessageInterface: React.FC<Props> = (props) => {
         console.log(error);
       }
     },
-    onClose: () => {
+    onClose: (event: CloseEvent) => {
+      if (event.code === 4001) {
+        console.log("Authentication Error");
+        refreshAccessToken().catch((error) => {
+          if (error.response && error.response.status === 401) {
+            logout();
+          }
+        });
+      }
+
+      setReconnectionAttempt((prevAttempt) => prevAttempt + 1);
+
       console.log("Closed 🚫");
     },
     onError: () => {
@@ -70,6 +86,18 @@ const MessageInterface: React.FC<Props> = (props) => {
       setNewMessage((prevMessage) => [...prevMessage, new_message]);
       setMessage("");
     },
+    shouldReconnect: (closeEvent) => {
+      if (
+        closeEvent.code === 4001 &&
+        reconnectionAttempt >= maxConnectionAttempt
+      ) {
+        setReconnectionAttempt(0);
+        return false;
+      }
+
+      return true;
+    },
+    reconnectInterval: 1000,
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
