@@ -1,8 +1,10 @@
 import axios from "axios";
 import { BASE_URL } from "../config";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const useAuthService = () => {
+  const navigate = useNavigate();
   const getInitialLoggedInValue = () => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     if (loggedIn !== null) {
@@ -86,12 +88,26 @@ const useAuthService = () => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("username");
     localStorage.setItem("isLoggedIn", "false");
 
     setIsLoggedIn(false);
+
+    navigate("/login");
+
+    try {
+      await axios.post(
+        `${BASE_URL}/logout/`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+    } catch (logoutError) {
+      return Promise.reject(logoutError);
+    }
   };
 
   return { login, logout, isLoggedIn, refreshAccessToken };
