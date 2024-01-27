@@ -35,17 +35,8 @@ const useAuthService = () => {
     }
   };
 
-  // const getUsernameFromToken = (token: string) => {
-  //   const tokenParts = token.split(".");
-  //   const encodedPayload = tokenParts[1];
-  //   const decodedPayload = atob(encodedPayload);
-  //   const payloadData = JSON.parse(decodedPayload);
-  //   const username = payloadData.user;
-
-  //   return username;
-  // };
-
-  const login = async (username: string, password: string) => {
+  const login = async (username: string, password: string): Promise<number> => {
+    // TODO: Check if user is already loggedin
     try {
       const res = await axios.post(
         `${BASE_URL}/token/`,
@@ -63,14 +54,12 @@ const useAuthService = () => {
       getUserDetails();
 
       setIsLoggedIn(true);
-    } catch (error) {
-      localStorage.removeItem("userId");
-      localStorage.removeItem("username");
-      localStorage.setItem("isLoggedIn", "false");
 
-      setIsLoggedIn(false);
-
-      return error;
+      // Success
+      return 200;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return error.response.status;
     }
   };
 

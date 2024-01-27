@@ -1,5 +1,5 @@
 export interface AuthServiceProps {
-  login: (username: string, password: string) => void;
+  login: (username: string, password: string) => Promise<number>;
   isLoggedIn: boolean;
   refreshAccessToken: () => Promise<void>;
   logout: () => void;
