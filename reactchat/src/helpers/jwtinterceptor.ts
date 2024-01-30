@@ -13,14 +13,40 @@ const useAxiosWithInterceptor = (): AxiosInstance => {
       return response;
     },
     async (error) => {
-      const originalRequest = error.config;
-      if (error.response?.status === 403) {
-        const goRoot = () => navigate("/test");
-        goRoot();
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        const refreshToken = localStorage.getItem("refreshToken");
+        // If access token is expired and we have refresh token we
+        // will request for a new access token from `/token/refresh`
+        // else redirect to login page for a new access token
+        if (refreshToken) {
+          try {
+            const response = await axios.post(`${BASE_URL}/token/refresh/`, {
+              refresh: refreshToken,
+            });
+
+            const newAccessToken = response.data.access;
+            localStorage.setItem("accessToken", newAccessToken);
+
+            // Rerequest the resource after getting a new access token
+            const originalRequest = error.config;
+            originalRequest.headers[
+              "Authorization"
+            ] = `Bearer ${newAccessToken}`;
+
+            return jwtAxios(originalRequest);
+          } catch (refreshError) {
+            navigate("/login");
+            throw refreshError;
+          }
+        } else {
+          navigate("/login");
+        }
       }
-      throw error
+
+      throw error;
     }
   );
+
   return jwtAxios;
 };
 
