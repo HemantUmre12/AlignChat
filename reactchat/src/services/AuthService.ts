@@ -63,6 +63,25 @@ const useAuthService = () => {
     }
   };
 
+  const register = async (username: string, password: string): Promise<number> => {
+    try {
+      await axios.post(
+        `${BASE_URL}/register/`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      // Success
+      return 200;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return error.response.status;
+    }
+  };
+
   const refreshAccessToken = async () => {
     try {
       await axios.post(
@@ -99,7 +118,7 @@ const useAuthService = () => {
     }
   };
 
-  return { login, logout, isLoggedIn, refreshAccessToken };
+  return { login, register, logout, isLoggedIn, refreshAccessToken };
 };
 
 export default useAuthService;
