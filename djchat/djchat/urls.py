@@ -1,13 +1,14 @@
-from account.views import AccountViewSet, JWTCookieTokenObtainPairView
+from account.views import (
+    AccountViewSet,
+    JWTCookieTokenObtainPairView,
+    JWTCookieTokenRefreshView,
+)
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import (
-    TokenRefreshView,
-)
 from server.views import CategoryListViewSet, ServerListViewSet
 from webchat.consumers import WebChatConsumer
 from webchat.views import MessageViewSet
@@ -30,7 +31,9 @@ urlpatterns = [
         name="token_obtain_pair",
     ),
     path(
-        "api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"
+        "api/token/refresh/",
+        JWTCookieTokenRefreshView.as_view(),
+        name="token_refresh",
     ),
 ] + rounter.urls
 

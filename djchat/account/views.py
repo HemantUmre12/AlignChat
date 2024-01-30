@@ -9,7 +9,11 @@ from rest_framework_simplejwt.views import (
 
 from .models import Account
 from .schema import account_list_docs
-from .serializer import AccountSerializer
+from .serializer import (
+    AccountSerializer,
+    CustomTokenObtainPairSerializer,
+    CustomTokenRefreshSerializer,
+)
 
 
 class AccountViewSet(viewsets.ViewSet):
@@ -37,6 +41,8 @@ class JWTSetCookieMixin:
                 samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
             )
 
+            del response.data["refresh"]
+
         if response.data.get("access"):
             response.set_cookie(
                 settings.SIMPLE_JWT["ACCESS_TOKEN_NAME"],
@@ -46,11 +52,14 @@ class JWTSetCookieMixin:
                 samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
             )
 
-        del response.data["refresh"]
-        del response.data["access"]
+            del response.data["access"]
 
         return super().finalize_response(request, response, *args, **kwargs)
 
 
 class JWTCookieTokenObtainPairView(JWTSetCookieMixin, TokenObtainPairView):
-    pass
+    serializer_class = CustomTokenObtainPairSerializer
+
+
+class JWTCookieTokenRefreshView(JWTSetCookieMixin, TokenRefreshView):
+    serializer_class = CustomTokenRefreshSerializer
