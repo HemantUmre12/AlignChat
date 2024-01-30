@@ -1,3 +1,4 @@
+from account.views import AccountViewSet
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -16,6 +17,7 @@ rounter = DefaultRouter()
 rounter.register("api/server/select", ServerListViewSet)
 rounter.register("api/server/category", CategoryListViewSet)
 rounter.register("api/messages", MessageViewSet, basename="message")
+rounter.register("api/account", AccountViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
