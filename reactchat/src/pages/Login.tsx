@@ -27,7 +27,12 @@ const Login = () => {
     }
 
     // Authentication calls will be made here...
-    const res = await login(username, password);
+    try {
+      await login(username, password);
+      navigate("/testLogin");
+    } catch (error) {
+      return error;
+    }
   };
 
   return (
