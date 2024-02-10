@@ -144,7 +144,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "dj-chat",
-    "DESCRIPTION": "A chat app.",
+    "DESCRIPTION": "A chat app powered by Django.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": True,
 }
