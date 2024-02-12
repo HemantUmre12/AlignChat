@@ -22,7 +22,7 @@ const useChatService = (channelId: string, serverId: number) => {
     `/messages/?channel_id=${channelId}`
   );
 
-  const socketURL = `ws://127.0.0.1:8000/${serverId}/${channelId}`;
+  const socketURL = `ws://157.245.158.180/${serverId}/${channelId}`;
 
   // Establish a Websocket connection with the server
   const { sendJsonMessage } = useWebSocket(socketURL, {

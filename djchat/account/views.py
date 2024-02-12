@@ -77,6 +77,7 @@ class JWTSetCookieMixin:
                 max_age=settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"],
                 httponly=True,
                 samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
+                secure=settings.SIMPLE_JWT["IS_SECURE"],
             )
 
             del response.data["refresh"]
@@ -88,6 +89,7 @@ class JWTSetCookieMixin:
                 max_age=settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"],
                 httponly=True,
                 samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
+                secure=settings.SIMPLE_JWT["IS_SECURE"],
             )
 
             del response.data["access"]

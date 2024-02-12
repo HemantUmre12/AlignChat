@@ -4,3 +4,5 @@ db.sqlite3
 __pycache__
 .vscode/
 commands.md
+djchat/staticfiles/
+djchat/media/
