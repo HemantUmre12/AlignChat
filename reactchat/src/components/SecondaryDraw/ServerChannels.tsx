@@ -37,6 +37,7 @@ const ServerChannels: React.FC<Props> = (props) => {
             textOverflow: "ellipsis",
             overflow: "hidden",
             whiteSpace: "nowrap",
+            textTransform: "capitalize",
           }}
         >
           {props.activeServer?.name ?? "Server"}
@@ -62,6 +63,7 @@ const ServerChannels: React.FC<Props> = (props) => {
                       variant="body1"
                       textAlign="start"
                       paddingLeft={1}
+                      textTransform="capitalize"
                     >
                       {item.name}
                     </Typography>

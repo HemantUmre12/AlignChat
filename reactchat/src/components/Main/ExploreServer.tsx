@@ -56,7 +56,7 @@ const ExploreServer = () => {
               textAlign: { xs: "center", sm: "left" },
             }}
           >
-            {categoryName ? categoryName : "Popular Channels"}
+            {categoryName ? categoryName : "Popular Servers"}
           </Typography>
         </Box>
 
@@ -154,6 +154,7 @@ const ExploreServer = () => {
                               {item.category}
                             </Typography>
                           }
+                          sx={{ textTransform: "capitalize" }}
                         />
                       </ListItem>
                     </List>

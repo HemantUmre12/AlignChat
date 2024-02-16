@@ -1,8 +1,8 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DarkModeSwitch from "./DarkMode/DarkModeSwitch";
-import { Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import LoginButton from "./LoginButton";
 
 const AccountButton = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -27,17 +27,9 @@ const AccountButton = () => {
       <MenuItem>
         <DarkModeSwitch />
       </MenuItem>
-      {/* Testing */}
-      <Link to="/login">
-      <Typography variant="body2" sx={{ textTransform: "capitalize" }}>
-        LogIn
-      </Typography>
-      </Link>
-      <Link to="/register">
-      <Typography variant="body2" sx={{ textTransform: "capitalize" }}>
-        Register
-      </Typography>
-      </Link>
+      <MenuItem>
+        <LoginButton />
+      </MenuItem>
     </Menu>
   );
 

@@ -87,7 +87,7 @@ const MessageInterfaceChannels: React.FC<Props> = (props) => {
               />
             </ListItemAvatar>
           </Box>
-          <Typography noWrap component="div">
+          <Typography noWrap component="div" textTransform="capitalize">
             {activeChannelName}
           </Typography>
         </Toolbar>

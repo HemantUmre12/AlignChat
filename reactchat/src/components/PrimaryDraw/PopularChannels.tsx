@@ -97,7 +97,10 @@ const PopularChannels: React.FC<Props> = (props) => {
                       {item.category}
                     </Typography>
                   }
-                  sx={{ opacity: props.open ? 1 : 0 }}
+                  sx={{
+                    opacity: props.open ? 1 : 0,
+                    textTransform: "capitalize",
+                  }}
                   primaryTypographyProps={{
                     sx: {
                       textOverflow: "ellipsis",

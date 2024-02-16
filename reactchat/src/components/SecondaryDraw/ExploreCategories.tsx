@@ -81,6 +81,7 @@ const ExploreCategories = () => {
                       variant="body1"
                       textAlign="start"
                       paddingLeft={1}
+                      textTransform="capitalize"
                     >
                       {item.name}
                     </Typography>

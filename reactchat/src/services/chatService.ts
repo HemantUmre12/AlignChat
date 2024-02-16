@@ -2,6 +2,7 @@ import { useState } from "react";
 import useWebSocket from "react-use-websocket";
 import useAuthServiceContext from "../context/useAuthServiceContext";
 import useCrud from "../hooks/useCrud";
+import { SOCKET_BASE_URL } from "../config";
 
 interface Message {
   id: number;
@@ -22,7 +23,7 @@ const useChatService = (channelId: string, serverId: number) => {
     `/messages/?channel_id=${channelId}`
   );
 
-  const socketURL = `wss://djchat.chickenkiller.com/${serverId}/${channelId}`;
+  const socketURL = `${SOCKET_BASE_URL}/${serverId}/${channelId}`;
 
   // Establish a Websocket connection with the server
   const { sendJsonMessage } = useWebSocket(socketURL, {

@@ -32,7 +32,7 @@ const UserServers: React.FC<Props> = (props) => {
         }}
       >
         <Typography sx={{ display: props.open ? "block" : "none" }}>
-          Popular
+          Server
         </Typography>
       </Box>
       <List>
@@ -84,7 +84,10 @@ const UserServers: React.FC<Props> = (props) => {
                       {item.category}
                     </Typography>
                   }
-                  sx={{ opacity: props.open ? 1 : 0 }}
+                  sx={{
+                    opacity: props.open ? 1 : 0,
+                    textTransform: "capitalize",
+                  }}
                   primaryTypographyProps={{
                     sx: {
                       textOverflow: "ellipsis",

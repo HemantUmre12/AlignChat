@@ -5,13 +5,13 @@ import SecondaryDraw from "./templates/SecondaryDraw";
 import Main from "./templates/Main";
 import MessageInterface from "../components/Main/MessageInterface";
 import ServerChannels from "../components/SecondaryDraw/ServerChannels";
-import UserServers from "../components/PrimaryDraw/UserServers";
 import { useNavigate, useParams } from "react-router-dom";
 import useCrud from "../hooks/useCrud";
 import { useEffect } from "react";
 import { Server } from "../@type/server.d";
 import ServerLanding from "../components/Main/ServerLanding";
 import LoadingScreen from "./templates/LoadingScreen";
+import UserServers from "../components/PrimaryDraw/UserServers";
 
 // TODO: Refactor
 const Server = () => {
@@ -25,7 +25,7 @@ const Server = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [serverId]);
 
   // Navigate to home page incase unable to fetch server data
   const navigate = useNavigate();

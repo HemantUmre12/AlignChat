@@ -48,8 +48,20 @@ class LogOutAPIView(APIView):
     def post(self, request, format=None):
         response = Response("Logged out succesfully!")
 
-        response.set_cookie("refresh_token", "", expires=0)
-        response.set_cookie("access_token", "", expires=0)
+        response.set_cookie(
+            "refresh_token",
+            "",
+            expires=0,
+            samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
+            secure=settings.SIMPLE_JWT["IS_SECURE"],
+        )
+        response.set_cookie(
+            "access_token",
+            "",
+            expires=0,
+            samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
+            secure=settings.SIMPLE_JWT["IS_SECURE"],
+        )
 
         return response
 

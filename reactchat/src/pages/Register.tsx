@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAuthServiceContext from "../context/useAuthServiceContext";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
@@ -98,6 +98,12 @@ const Register = () => {
           >
             Next
           </Button>
+
+          <Box>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              Already have an account? Sign in
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Container>

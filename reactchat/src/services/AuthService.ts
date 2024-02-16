@@ -103,7 +103,7 @@ const useAuthService = () => {
 
     setIsLoggedIn(false);
 
-    navigate("/login");
+    navigate("/");
 
     try {
       await axios.post(

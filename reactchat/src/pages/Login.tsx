@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useAuthServiceContext from "../context/useAuthServiceContext";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
@@ -36,7 +36,7 @@ const Login = () => {
       setUsernameError("Invalid username or password");
       setPasswordError("Invalid username or password");
     } else {
-      navigate("/testLogin");
+      navigate("/");
     }
   };
 
@@ -92,10 +92,16 @@ const Login = () => {
             variant="contained"
             disableElevation
             type="submit"
-            sx={{ mt: 1, mb: 2 }}
+            sx={{ display: "block", mt: 1, mb: 2 }}
           >
             Next
           </Button>
+
+          <Box>
+            <Link to="/register" style={{ textDecoration: "none" }}>
+              Don't have an account? Sign Up
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Container>
