@@ -78,7 +78,7 @@ const PrimaryAppBar = () => {
             noWrap
             sx={{ fontWeight: "700", letterSpacing: "-0.5px" }}
           >
-            DJCHAT
+            ALIGNCHAT
           </Typography>
         </Link>
 
